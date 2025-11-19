@@ -13,7 +13,7 @@ function App() {
       <Features />
       <Pricing />
       <Contact />
-      <footer className="py-10 text-center text-blue-200/70 bg-slate-950 border-t border-slate-800/60">© {new Date().getFullYear()} Your Brand — All rights reserved.</footer>
+      <footer className="py-10 text-center text-blue-200/70 bg-slate-950 border-t border-slate-800/60">© {new Date().getFullYear()} Local Elevate Solutions — All rights reserved.</footer>
     </div>
   )
 }

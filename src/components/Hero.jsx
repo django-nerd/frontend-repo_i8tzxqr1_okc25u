@@ -1,34 +1,89 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
+import Particles from './Particles'
 
 function Hero() {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], [0, 150])
+  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0.6])
+
+  // Parallax mouse tilt
+  const tiltX = useMotionValue(0)
+  const tiltY = useMotionValue(0)
+  const springX = useSpring(tiltX, { stiffness: 120, damping: 20 })
+  const springY = useSpring(tiltY, { stiffness: 120, damping: 20 })
+
+  const [hovered, setHovered] = useState(false)
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      const { innerWidth, innerHeight } = window
+      const x = (e.clientX / innerWidth - 0.5) * 10
+      const y = (e.clientY / innerHeight - 0.5) * 10
+      tiltX.set(x)
+      tiltY.set(y)
+    }
+    window.addEventListener('mousemove', handleMove)
+    return () => window.removeEventListener('mousemove', handleMove)
+  }, [tiltX, tiltY])
+
   return (
-    <section className="relative pt-28 pb-20 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(600px_300px_at_top_right,rgba(59,130,246,0.25),transparent_70%)]" />
-      <div className="mx-auto max-w-6xl px-4">
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-              Grow your local business with a clean, high‑converting website
-            </h1>
-            <p className="mt-5 text-lg text-blue-200/90">
-              Simple pricing. No surprises. We build fast, optimized, and mobile‑friendly pages that turn searches into customers.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#pricing" className="rounded-lg bg-blue-500 px-5 py-3 text-white font-medium shadow shadow-blue-500/30 hover:bg-blue-600 transition-colors">See Pricing</a>
-              <a href="#contact" className="rounded-lg bg-white/10 px-5 py-3 text-white font-medium border border-white/10 hover:bg-white/15 transition-colors">Request a Callback</a>
-            </div>
-            <div className="mt-6 flex items-center gap-6 text-sm text-blue-200/70">
-              <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-400"/> 2‑week delivery</div>
-              <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-400"/> SEO‑ready</div>
-              <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-400"/> Mobile‑first</div>
-            </div>
+    <section ref={ref} className="relative h-[90vh] min-h-[640px] w-full overflow-hidden">
+      {/* Parallax gradient background */}
+      <motion.div style={{ y }} className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(900px_400px_at_top_right,rgba(34,211,238,0.25),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(900px_400px_at_bottom_left,rgba(59,130,246,0.2),transparent_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0)_0%,rgba(2,6,23,0.3)_40%,rgba(2,6,23,1)_100%)]" />
+        <Particles count={40} />
+      </motion.div>
+
+      {/* Glowing grid */}
+      <div className="absolute inset-0 opacity-20" aria-hidden>
+        <div className="[background-image:radial-gradient(rgba(148,163,184,0.08)_1px,transparent_1px)] [background-size:20px_20px] w-full h-full" />
+      </div>
+
+      <div className="relative z-10 h-full mx-auto max-w-6xl px-4 flex items-center">
+        <div>
+          <motion.h1 style={{ opacity }} className="text-4xl sm:text-6xl font-black tracking-tight leading-tight glow-text">
+            Local Elevate Solutions
+          </motion.h1>
+          <motion.p style={{ opacity }} className="mt-5 text-lg sm:text-xl text-blue-200/90 max-w-2xl">
+            We build high‑converting local business websites and keep your Google Business Profile optimized so you rank and get more calls.
+          </motion.p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#pricing" className="rounded-xl px-5 py-3 font-medium text-cyan-900 bg-cyan-300 hover:bg-cyan-200 transition transform hover:scale-[1.02] neon-cyan">See Pricing</a>
+            <a href="#contact" className="rounded-xl px-5 py-3 font-medium text-white/90 border border-white/15 hover:bg-white/10 transition gradient-ring">Request a Callback</a>
           </div>
-          <div className="relative">
-            <div className="aspect-[4/3] rounded-2xl border border-slate-700/40 bg-slate-800/40 backdrop-blur-sm shadow-2xl overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1642132652860-471b4228023e?ixid=M3w3OTkxMTl8MHwxfHNlYXJjaHwxfHxCdXNpbmVzcyUyMHdlYnNpdGUlMjBwcmV2aWV3fGVufDB8MHx8fDE3NjM1NDkyMjF8MA&ixlib=rb-4.1.0&w=1600&auto=format&fit=crop&q=80" alt="Business website preview" className="h-full w-full object-cover opacity-90"/>
-            </div>
+
+          <div className="mt-6 flex items-center gap-6 text-sm text-blue-200/70">
+            <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-cyan-300"/> 2‑week delivery</div>
+            <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-cyan-300"/> SEO‑ready</div>
+            <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-cyan-300"/> Mobile‑first</div>
           </div>
         </div>
+
+        {/* 3D-ish preview */}
+        <motion.div
+          onHoverStart={() => setHovered(true)}
+          onHoverEnd={() => setHovered(false)}
+          style={{ rotateX: springY, rotateY: springX }}
+          className="hidden lg:block ml-auto"
+        >
+          <div className="relative w-[520px] aspect-[4/3] rounded-2xl glass overflow-hidden neon-blue">
+            <img src="https://images.unsplash.com/photo-1642132652860-471b4228023e?auto=format&fit=crop&q=80&w=1400" alt="Preview" className="h-full w-full object-cover opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 mix-blend-screen" />
+            <div className="absolute -inset-10 pointer-events-none blur-3xl opacity-20 bg-[conic-gradient(from_90deg_at_50%_50%,theme(colors.cyan.400),theme(colors.blue.500),transparent_70%)]" />
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-blue-200/70 text-xs">
+        <div className="w-5 h-8 rounded-full border border-blue-200/40 mx-auto relative overflow-hidden">
+          <motion.span animate={{ y: [2, 12, 2] }} transition={{ repeat: Infinity, duration: 1.6 }} className="absolute left-1/2 -translate-x-1/2 top-2 w-1 h-2 rounded-full bg-blue-200/70" />
+        </div>
+        <div className="mt-2">Scroll</div>
       </div>
     </section>
   )
