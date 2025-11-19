@@ -21,17 +21,21 @@ function Contact() {
 
   return (
     <section id="contact" className="py-20 relative">
-      <div className="absolute inset-0 bg-[radial-gradient(800px_300px_at_top,rgba(34,211,238,0.12),transparent_70%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(800px_300px_at_top,rgba(244,63,94,0.12),transparent_70%)]" />
       <div className="relative mx-auto max-w-6xl px-4">
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           <div>
             <h2 className="text-3xl font-bold text-white tracking-tight glow-text">Request a callback</h2>
-            <p className="mt-2 text-blue-200/80">Tell us a little about your business and we'll reach out.</p>
-            <ul className="mt-6 space-y-2 text-blue-200/90 text-sm">
+            <p className="mt-2 text-rose-200/80">Tell us a little about your business and we'll reach out.</p>
+            <ul className="mt-6 space-y-2 text-rose-200/90 text-sm">
               <li>• WhatsApp or phone within 24 hours</li>
               <li>• No hard sell—just straight answers</li>
               <li>• We'll share quick ideas specific to your niche</li>
             </ul>
+            <div className="mt-6 text-sm text-rose-200/90 space-y-1">
+              <div>Email: <a className="underline decoration-rose-400/60 hover:decoration-rose-300" href="mailto:verselinq@gmail.com">verselinq@gmail.com</a></div>
+              <div>WhatsApp: <a className="underline decoration-rose-400/60 hover:decoration-rose-300" href="https://wa.me/254751621823" target="_blank" rel="noreferrer">+254751621823</a></div>
+            </div>
           </div>
           <form onSubmit={handleSubmit} className="rounded-2xl glass p-6">
             <div className="grid sm:grid-cols-2 gap-4">
@@ -51,7 +55,7 @@ function Contact() {
               <label className="field-label">Message</label>
               {!messageValid && message && <p className="mt-1 text-xs text-red-400">Tell us a bit more (10+ characters).</p>}
             </div>
-            <button disabled={!formValid} type="submit" className={`mt-5 w-full rounded-lg px-4 py-2.5 font-medium transition gradient-ring ${formValid ? 'bg-cyan-500/20 text-cyan-100 border border-cyan-400/40 hover:bg-cyan-500/30' : 'bg-white/5 text-white/60 border border-white/10 cursor-not-allowed'}`}>Send</button>
+            <button disabled={!formValid} type="submit" className={`mt-5 w-full rounded-lg px-4 py-2.5 font-medium transition gradient-ring ${formValid ? 'bg-rose-500/20 text-rose-100 border border-rose-400/40 hover:bg-rose-500/30' : 'bg-white/5 text-white/60 border border-white/10 cursor-not-allowed'}`}>Send</button>
             {sent && (
               <p className="mt-3 text-emerald-300 text-sm">Thanks! We'll contact you shortly.</p>
             )}

@@ -17,7 +17,7 @@ function Particles({ count = 30 }) {
       {particles.map(p => (
         <span
           key={p.id}
-          className="absolute rounded-full bg-cyan-400/70 shadow-[0_0_12px_2px_rgba(34,211,238,0.35)] animate-float"
+          className="absolute rounded-full bg-rose-400/70 shadow-[0_0_12px_2px_rgba(244,63,94,0.35)] animate-float"
           style={{
             left: `${p.left}%`,
             top: `${p.top}%`,

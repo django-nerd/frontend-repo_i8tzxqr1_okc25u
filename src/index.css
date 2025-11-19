@@ -5,19 +5,20 @@
 @layer base {
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --glow-cyan: 0 0 30px rgba(34,211,238,0.35), 0 0 60px rgba(34,211,238,0.25);
-    --glow-blue: 0 0 30px rgba(59,130,246,0.35), 0 0 60px rgba(59,130,246,0.25);
+    /* Maroon/rose accented glow variables */
+    --glow-primary: 0 0 30px rgba(244,63,94,0.35), 0 0 60px rgba(190,18,60,0.25); /* rose-500 / rose-700 */
+    --glow-secondary: 0 0 30px rgba(225,29,72,0.35), 0 0 60px rgba(244,63,94,0.25); /* rose-600 / rose-500 */
   }
 
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
     scroll-behavior: smooth;
-    background-color: rgb(2,6,23);
+    background-color: #12070a; /* deep maroon base */
   }
 
   body {
-    @apply antialiased bg-slate-950 text-white;
+    @apply antialiased bg-[#12070a] text-white; /* page base to maroon */
   }
 }
 
@@ -27,10 +28,12 @@
     @apply bg-white/5 backdrop-blur-md border border-white/10;
   }
   .neon-cyan {
-    box-shadow: var(--glow-cyan);
+    /* repurposed to maroon primary */
+    box-shadow: var(--glow-primary);
   }
   .neon-blue {
-    box-shadow: var(--glow-blue);
+    /* repurposed to maroon secondary */
+    box-shadow: var(--glow-secondary);
   }
   .gradient-ring {
     position: relative;
@@ -41,7 +44,7 @@
     inset: -1px;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(34,211,238,.6), rgba(59,130,246,.6), transparent 80%);
+    background: linear-gradient(135deg, rgba(244,63,94,.6), rgba(190,18,60,.6), transparent 80%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor; /* Safari */
             mask-composite: exclude;
@@ -49,7 +52,7 @@
   }
 
   .glow-text {
-    text-shadow: 0 0 15px rgba(34,211,238,0.35), 0 0 35px rgba(59,130,246,0.25);
+    text-shadow: 0 0 15px rgba(244,63,94,0.35), 0 0 35px rgba(190,18,60,0.25);
   }
 
   .animate-float {
@@ -81,16 +84,16 @@
     @apply relative;
   }
   .field-input {
-    @apply w-full rounded-lg bg-slate-900/60 border border-slate-700/50 px-3 pt-5 pb-2 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400/60 transition;
+    @apply w-full rounded-lg bg-[#1a0b10]/70 border border-rose-900/50 px-3 pt-5 pb-2 text-white placeholder-transparent focus:outline-none focus:ring-2 focus:ring-rose-400/70 transition;
   }
   .field-label {
-    @apply absolute left-3 top-2.5 text-sm text-blue-200/70 pointer-events-none transition-all;
+    @apply absolute left-3 top-2.5 text-sm text-rose-200/70 pointer-events-none transition-all;
   }
   .field-input:placeholder-shown ~ .field-label {
-    @apply top-2.5 text-blue-200/60;
+    @apply top-2.5 text-rose-200/60;
   }
   .field-input:not(:placeholder-shown) ~ .field-label,
   .field-input:focus ~ .field-label {
-    @apply -translate-y-3 text-xs text-cyan-300;
+    @apply -translate-y-3 text-xs text-rose-300;
   }
 }

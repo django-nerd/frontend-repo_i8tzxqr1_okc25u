@@ -7,13 +7,13 @@ import Contact from './components/Contact'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-[#12070a] text-white">
       <Navbar />
       <Hero />
       <Features />
       <Pricing />
       <Contact />
-      <footer className="py-10 text-center text-blue-200/70 bg-slate-950 border-t border-slate-800/60">© {new Date().getFullYear()} Local Elevate Solutions — All rights reserved.</footer>
+      <footer className="py-10 text-center text-rose-200/80 bg-[#12070a] border-t border-rose-900/60">© {new Date().getFullYear()} Local Elevate Solutions — All rights reserved.</footer>
     </div>
   )
 }
